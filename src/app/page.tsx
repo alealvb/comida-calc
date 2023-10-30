@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
+import { CreateProduct } from "~/app/_components/create-product";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
 export default async function Home() {
-  const hello = await api.post.hello.query({ text: "from tRPC" });
+  const hello = await api.product.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
   return (
@@ -66,7 +66,7 @@ async function CrudShowcase() {
   const session = await getServerAuthSession();
   if (!session?.user) return null;
 
-  const latestPost = await api.post.getLatest.query();
+  const latestPost = await api.product.getLatest.query();
 
   return (
     <div className="w-full max-w-xs">
@@ -76,7 +76,7 @@ async function CrudShowcase() {
         <p>You have no posts yet.</p>
       )}
 
-      <CreatePost />
+      <CreateProduct />
     </div>
   );
 }
