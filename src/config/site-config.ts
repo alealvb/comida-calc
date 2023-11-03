@@ -5,7 +5,7 @@ export type SiteConfig = {
   sidebarNav: SidebarNavItem[];
   name: string;
   description: string;
-}
+};
 
 export const siteConfig: SiteConfig = {
   name: "comida calc",
@@ -44,4 +44,3 @@ export const siteConfig: SiteConfig = {
     // },
   ],
 };
-
