@@ -7,14 +7,6 @@ import {
 } from "~/server/api/trpc";
 
 export const productRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -25,15 +17,9 @@ export const productRouter = createTRPCRouter({
         },
       });
     }),
-
-  getLatest: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.product.findFirst({
-      orderBy: { createdAt: "desc" },
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.product.findMany({
       where: { createdBy: { id: ctx.session.user.id } },
     });
-  }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
   }),
 });
