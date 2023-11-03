@@ -12,16 +12,17 @@ export async function SiteHeader() {
         {/* <MainNav />
         <MobileNav /> */}
         <Link href="/">Comida Calc</Link>
-        <div className="ml-2">
-          <ModeToggle />
-        </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           <div className="w-auto flex-none">
             {session && <span>{session.user?.name}</span>}
           </div>
-          <nav className="flex items-center ">
+
+          <nav className="flex items-center">
+            <div className="ml-2">
+              <ModeToggle />
+            </div>
             <Link
-              className={buttonVariants({ variant: "outline" })}
+              className={buttonVariants({ variant: "ghost" })}
               href={session ? "/api/auth/signout" : "/api/auth/signin"}
             >
               {session ? "Sign out" : "Sign in"}

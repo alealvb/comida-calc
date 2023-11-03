@@ -1,7 +1,10 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 
 import { api } from "~/trpc/react";
 
@@ -24,20 +27,22 @@ export function CreateProduct() {
       }}
       className="flex flex-col gap-2"
     >
-      <input
+      <Input
         type="text"
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full rounded-full px-4 py-2 text-black"
       />
-      <button
-        type="submit"
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
-        disabled={createProduct.isLoading}
-      >
-        {createProduct.isLoading ? "Submitting..." : "Submit"}
-      </button>
+      <Button type="submit" color="primary" disabled={createProduct.isLoading}>
+        {createProduct.isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </>
+        ) : (
+          "Submit"
+        )}
+      </Button>
     </form>
   );
 }
